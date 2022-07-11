@@ -36,3 +36,9 @@ By default the images are pulled from Docker Hub.
 | psp.enabled      | false | boolean | Enable Pod Security Policy for clusters with a PSP Admission controller |
 | redis.storageClassName | standard | string | Storage class to use with Redis's StatefulSet. The default for EKS is gp2. |
 | ocCreateRoute    | false | boolean | If you are running on OpenShift and need a Route to the web service, set this to `true` |
+
+## Helm- Website Diagram
+
+Diagram of some of the kubernetes componenets that will be created.
+
+![Helm app](helm-app.png "Helm app")
