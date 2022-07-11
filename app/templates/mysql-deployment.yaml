@@ -19,13 +19,13 @@ spec:
       {{ end }}
       containers:
       - name: mysql
-        image: {{ .Values.image.repo }}/rs-mysql-db:{{ .Values.image.version }}
+        image: mysql
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 3306
-        #env:
-        #- name: MYSQL_ROOT_PASSWORD
-        #  value: "123"
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123"
         #- name: MYSQL_HOST
         #  value: 34.168.80.67
         #- name: MYSQL_USER
