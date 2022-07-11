@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    service: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mysql
+  template:
+    metadata:
+      labels:
+        service: mysql
+    spec:
+      {{ if .Values.psp.enabled }}
+      serviceAccountName: robot-shop
+      {{ end }}
+      containers:
+      - name: mysql
+        image: mysql
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_HOST
+          value: 34.168.80.67
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: vault-secrets
+              key: db_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vault-secrets
+              key: db_password
+        resources:
+          limits:
+            cpu: 200m
+            memory: 1024Mi
+          requests:
+            cpu: 100m
+            memory: 700Mi
+      restartPolicy: Always
